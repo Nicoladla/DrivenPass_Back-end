@@ -26,45 +26,47 @@ model User {
 
 model Credential {
   id        Int      @id @default(autoincrement())
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
   title     String
   url       String
   user      String
   password  String
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    Int?
 
   @@map("credentials")
 }
 
 model SecureNote {
   id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
   title      String
   annotation String
   updatedAt  DateTime @updatedAt
   createdAt  DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id])
-  userId     Int
 
   @@map("secureNotes")
 }
 
 model WiFi {
   id        Int      @id @default(autoincrement())
+  User      User     @relation(fields: [userId], references: [id])
+  userId    Int
   title     String
   name      String
   password  String
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
-  User      User     @relation(fields: [userId], references: [id])
-  userId    Int
 
   @@map("wiFis")
 }
 
 model Card {
   id             Int      @id @default(autoincrement())
+  User           User     @relation(fields: [userId], references: [id])
+  userId         Int
   title          String
   name           String
   password       String
@@ -75,8 +77,6 @@ model Card {
   type           CardType
   updatedAt      DateTime @updatedAt
   createdAt      DateTime @default(now())
-  User           User     @relation(fields: [userId], references: [id])
-  userId         Int
 
   @@map("cards")
 }
